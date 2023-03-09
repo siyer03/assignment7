@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>JSON3</title>
+    <script type="text/javascript" src="jquery-3.6.3.min.js">
+    </script>
+</head>
+
+<body>
+    
+<div id = "list"></div>
+
+<br><br>
+
+<script>
+
+$.get("https://siyer03.github.io/jsonfiles/data.json", function(data) {
+    s = JSON.stringify(data);
+    obj = JSON.parse(s);
+
+    var songlist = document.getElementById("list");
+
+    for (let i = 0; i < obj.length; i++)
+    {
+        songlist.innerHTML += obj[i].title + "<br>";
+        songlist.innerHTML += "Artist(s): ";
+        artists(i);
+        songlist.innerHTML += "<br>";
+        songlist.innerHTML += "Genre(s): ";
+        genres(i);
+        songlist.innerHTML += "<br>";
+        songlist.innerHTML += "Year Released: " + obj[i].year + "<br><br>";        
+
+    }
+
+
+    function artists(value)
+    {
+        for (let i = 0; i < obj[value].artist.length; i++)
+        {
+            songlist.innerHTML += obj[value].artist[i];
+            if (i < obj[value].artist.length - 1)
+            {
+                songlist.innerHTML += ", ";
+            }
+        }
+    }
+
+    function genres(value)
+    {
+        for (let i = 0; i < obj[value].genre.length; i++)
+        {
+            songlist.innerHTML += obj[value].genre[i];
+            if (i < obj[value].genre.length - 1)
+            {
+                songlist.innerHTML += ", ";
+            }
+        }
+    }
+})
+
+</script>
+
+</body>
+
+</html>
