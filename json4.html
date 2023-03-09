@@ -1,0 +1,207 @@
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>JSON4</title>
+    <script type="text/javascript" src="jquery-3.6.3.min.js">
+    </script>
+</head>
+
+<body>
+
+<div>
+Select Genre:
+<select name = "select" id = "select">
+    <option>All</option>
+    <option>Pop</option>
+    <option>Alternative</option>
+    <option>Rock</option>
+    <option>Dance</option>
+    <option>Musical Theater</option>
+</select>
+<input type = "button" value = "Filter" id = "btn"></input>
+</div>
+
+<br>
+
+<div id = "list"></div>
+
+<br><br>
+
+<script>
+
+array = 
+[
+    {"title" : "Anyone",
+     "artist" : ["Justin Bieber"],
+     "genre" : ["Pop"],
+     "year" : 2021
+    },
+
+    {"title" : "Check Yes, Juliet",
+     "artist" : ["We the Kings"],
+     "genre" : ["Alternative"],
+     "year" : 2007
+    },
+
+    {"title" : "AVO TOAST",
+     "artist" : ["Clinton Kane"],
+     "genre" : ["Pop"],
+     "year" : 2022
+    },
+
+    {"title" : "Livin' On a Prayer",
+     "artist" : ["Bon Jovi"],
+     "genre" : ["Rock"],
+     "year" : 1986
+    },
+
+    {"title" : "Stitches",
+     "artist" : ["Shawn Mendes"],
+     "genre" : ["Pop"],
+     "year" : 2015
+    },
+
+    {"title" : "Hold the Line",
+     "artist" : ["Toto"],
+     "genre" : ["Rock"],
+     "year" : 1978
+    },
+
+    {"title" : "Beautiful Now",
+     "artist" : ["Zedd","Jon Bellion"],
+     "genre" : ["Dance"],
+     "year" : 2015
+    },
+
+    {"title" : "The Other Side",
+     "artist" : ["Hugh Jackman","Zac Efron"],
+     "genre" : ["Musical Theater","Pop"],
+     "year" : 2017
+    },
+
+    {"title" : "Burnin' Up",
+     "artist" : ["Jonas Brothers"],
+     "genre" : ["Pop"],
+     "year" : 2008
+    },
+
+    {"title" : "I'm Shipping up to Boston",
+     "artist" : ["Dropkick Murphys"],
+     "genre" : ["Rock"],
+     "year" : 2005
+    },
+
+    {"title" : "Peace of Mind",
+     "artist" : ["Boston"],
+     "genre" : ["Rock"],
+     "year" : 1976
+    },
+
+    {"title" : "Drown",
+     "artist" : ["Martin Garrix","Clinton Kane"],
+     "genre" : ["Dance"],
+     "year" : 2020
+    },
+
+    {"title" : "It's Gonna Be Me",
+     "artist" : ["*NSYNC"],
+     "genre" : ["Pop"],
+     "year" : 2000
+    },
+
+    {"title" : "Only Us",
+     "artist" : ["Laura Dreyfuss","Ben Platt"],
+     "genre" : ["Musical Theater"],
+     "year" : 2017
+    },
+
+    {"title" : "Dear Maria, Count Me In",
+     "artist" : ["All Time Low"],
+     "genre" : ["Alternative"],
+     "year" : 2007
+    }
+]
+
+s = JSON.stringify(array);
+obj = JSON.parse(s);
+
+document.write("<br><br>")
+
+var selection = document.getElementById("select");
+var songlist = document.getElementById("list");
+var button = document.getElementById("btn");
+button.addEventListener("click", click_function);
+
+function check_genre(value)
+{
+    for (let i = 0; i < obj[value].genre.length; i++)
+    {
+        if (obj[value].genre[i] == selection.value)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function click_function()
+{    
+    songlist.innerHTML = "";
+
+    for (let i = 0; i < obj.length; i++)
+    {
+        if (check_genre(i)) 
+        {
+            songlist.innerHTML += obj[i].title + "<br>";
+            songlist.innerHTML += "Artist(s): ";
+            artists(i);
+            songlist.innerHTML += "<br>";
+            songlist.innerHTML += "Genre(s): ";
+            genres(i);
+            songlist.innerHTML += "<br>";
+            songlist.innerHTML += "Year Released: " + obj[i].year + "<br><br>";
+        } else if (selection.value == "All")
+        {
+            songlist.innerHTML += obj[i].title + "<br>";
+            songlist.innerHTML += "Artist(s): ";
+            artists(i);
+            songlist.innerHTML += "<br>";
+            songlist.innerHTML += "Genre(s): ";
+            genres(i);
+            songlist.innerHTML += "<br>";
+            songlist.innerHTML += "Year Released: " + obj[i].year + "<br><br>";
+        }
+
+    }
+}
+
+function artists(value)
+{
+    for (let i = 0; i < obj[value].artist.length; i++)
+    {
+        songlist.innerHTML += obj[value].artist[i];
+        if (i < obj[value].artist.length - 1)
+        {
+            songlist.innerHTML += ", ";
+        }
+    }
+}
+
+function genres(value)
+{
+    for (let i = 0; i < obj[value].genre.length; i++)
+    {
+        songlist.innerHTML += obj[value].genre[i];
+        if (i < obj[value].genre.length - 1)
+        {
+            songlist.innerHTML += ", ";
+        }
+    }
+}
+
+</script>
+
+</body>
+
+</html>
